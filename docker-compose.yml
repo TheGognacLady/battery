@@ -1,0 +1,43 @@
+version: '3'
+services:
+    web:
+        build: ./server
+
+        ports:
+            - 5000:5000
+    
+        links:
+            - mongodb
+        depends_on:
+            - mongodb
+            
+    selen:
+        build: ./selen
+        depends_on: 
+            - firefox
+            - hub
+            - mongodb
+            - web
+        restart: always
+         
+    mongodb:
+        image: mongo:3.2
+
+    firefox:
+        image: selenium/node-firefox:3.14.0-gallium
+        volumes:
+            - /dev/shm:/dev/shm
+        depends_on:
+            - hub
+        environment:
+            HUB_HOST: hub
+            HUB_PORT_4444_TCP_ADDR: hub
+            HUB_PORT_4444_TCP_PORT: 4444
+        links:
+            - hub:hub
+    
+    hub:
+        image: selenium/hub:3.14.0-gallium
+        ports:
+            - "4444:4444"
+        container_name:     hub
