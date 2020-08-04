@@ -13,7 +13,7 @@ db = client.cookiebase
 def gen():
     cookies = db.cookies.find_one()
     uname = cookies['uname']
-    db.cookies.delete_one({'uname': uname)
+    db.cookies.delete_one({'uname': uname})
     return {'res': cookies['cookies']}
 
 if __name__ == "__main__":
