@@ -11,8 +11,10 @@ db = client.cookiebase
 
 @app.route('/generate')
 def gen():
-    cookies = db.cookies.find().limit(30)
-    return {'res': list(map(lambda x: x['cookies'], cookies))}
+    cookies = db.cookies.find_one()
+    uname = cookies['uname']
+    db.cookies.delete_one({'uname': uname)
+    return {'res': cookies['cookies']}
 
 if __name__ == "__main__":
     app.run(host="89.208.86.241")
