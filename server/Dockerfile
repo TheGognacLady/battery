@@ -8,4 +8,4 @@ COPY requirements.txt /server/
 RUN pip install -r requirements.txt
 
 
-CMD gunicorn -b localhost:8000 -w 4 server:main
+CMD gunicorn -b localhost:8000 -w 4 main:app
