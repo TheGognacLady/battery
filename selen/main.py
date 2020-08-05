@@ -6,10 +6,10 @@ import time
 client = MongoClient('mongodb', 27017)
 db = client.cookiebase
 
+items = db.cookies.find()
+
 with open('data/accounts.json', 'r') as f:
     accounts = json.load(f)
-
-items = db.cookies.find()
 
 absence = accounts.keys() - set(map(lambda x: x['uname'], items))
 
@@ -25,4 +25,4 @@ if absence:
         cookies = db.cookies
         cookies.insert_one(new)
 
-time.sleep(60)
+time.sleep(1)
