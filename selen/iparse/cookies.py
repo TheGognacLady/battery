@@ -66,6 +66,6 @@ class CookieObtainer:
 
 		dct = map(lambda x: (x['name'], x['value']), driver.get_cookies())
 		cookies = dict(list(dct))
-		self.driver.quit()
+		driver.quit()
 
 		return cookies
