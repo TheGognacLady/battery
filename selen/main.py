@@ -19,8 +19,12 @@ while True:
 
     if absence:
         for uname in absence:
-            obt = cookies.CookieObtainer(db.cookies)
+            obt = cookies.CookieObtainer()
             passw = accounts[uname]
-            obt.get_cookies(uname, passw)
+            cookies = obt.get_cookies(uname, passw)
+            db.cookies.insert_one({
+                'cookies': cookies,
+                'uname': uname,
+    		})
 
     time.sleep(1)

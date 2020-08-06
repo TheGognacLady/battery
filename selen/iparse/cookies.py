@@ -12,18 +12,16 @@ import random
 from pymongo import MongoClient
 
 class CookieObtainer:
-	def __init__(self, db):
-		self.driver = webdriver.Remote(
-				  command_executor='http://hub:4444/wd/hub',
-				  desired_capabilities=DesiredCapabilities.FIREFOX)
-
-		self.db = db
+	def __init__(self):
+		pass
 
 
 
 	def get_cookies(self, uname, password):
 
-		driver = self.driver
+		driver = webdriver.Remote(
+				  command_executor='http://hub:4444/wd/hub',
+				  desired_capabilities=DesiredCapabilities.FIREFOX)
 
 		driver.get("https://www.instagram.com/accounts/login/")
 		el = WT(driver, 10).until(EC.presence_of_element_located((By.NAME, "username")))
@@ -68,10 +66,6 @@ class CookieObtainer:
 
 		dct = map(lambda x: (x['name'], x['value']), driver.get_cookies())
 		cookies = dict(list(dct))
-
-		self.db.insert_one({
-            'cookies': cookies,
-            'uname': uname,
-		})
-
 		self.driver.quit()
+
+		return cookies
