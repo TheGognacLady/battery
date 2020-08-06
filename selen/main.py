@@ -21,9 +21,9 @@ while True:
         for uname in absence:
             obt = cookies.CookieObtainer()
             passw = accounts[uname]
-            cookies = obt.get_cookies(uname, passw)
+            cook = obt.get_cookies(uname, passw)
             db.cookies.insert_one({
-                'cookies': cookies,
+                'cookies': cook,
                 'uname': uname,
     		})
 
