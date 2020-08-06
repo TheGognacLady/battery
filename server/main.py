@@ -17,4 +17,5 @@ def gen():
     return {'res': cookies['cookies']}
 
 if __name__ == "__main__":
-    app.run(host="89.208.86.241")
+    #app.run(host="89.208.86.241")
+    app.run(host="0.0.0.0")

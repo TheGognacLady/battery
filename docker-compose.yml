@@ -11,13 +11,17 @@ services:
     web:
         build: ./server
 
-        expose:
-            - 5000
+      #  expose:
+    #        - 5000
 
+        ports:
+          - 5000:5000
+          
         links:
             - mongodb
         depends_on:
             - mongodb
+        restart: always
 
     selen:
         build: ./selen
@@ -43,9 +47,11 @@ services:
             HUB_PORT_4444_TCP_PORT: 4444
         links:
             - hub:hub
+        restart: always
 
     hub:
         image: selenium/hub:3.14.0-gallium
         ports:
             - "4444:4444"
         container_name:     hub
+        restart: always
