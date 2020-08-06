@@ -22,4 +22,4 @@ def get_db():
     return {'res': cookies}
 
 if __name__ == "__main__":
-    app.run(host="89.208.86.241")
+    app.run(host="185.241.194.156")
