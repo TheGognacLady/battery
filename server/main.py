@@ -16,5 +16,10 @@ def gen():
     db.cookies.delete_one({'uname': uname})
     return {'res': cookies['cookies']}
 
+@app.route('/getall')
+def get_db():
+    cookies = db.cookies.find()
+    return {'res': cookies}
+
 if __name__ == "__main__":
     app.run(host="89.208.86.241")
