@@ -13,14 +13,14 @@ with open('data/accounts.json', 'r') as f:
     accounts = json.load(f)
     print(accounts)
 
-absence = set(accounts.keys()) - set(map(lambda x: x['uname'], items))
+while True:
+    absence = set(accounts.keys()) - set(map(lambda x: x['uname'], items))
 
 
-if absence:
-    obt = cookies.CookieObtainer()
-    for uname in absence:
-        passw = accounts[uname]
-        obt.get_cookies(uname, passw)
-    obt.close_driver()
+    if absence:
+        for uname in absence:
+            obt = cookies.CookieObtainer(db.cookies)
+            passw = accounts[uname]
+            obt.get_cookies(uname, passw)
 
-time.sleep(3)
+    time.sleep(1)

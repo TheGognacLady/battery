@@ -12,17 +12,13 @@ import random
 from pymongo import MongoClient
 
 class CookieObtainer:
-	def __init__(self):
+	def __init__(self, db):
 		self.driver = webdriver.Remote(
 				  command_executor='http://hub:4444/wd/hub',
 				  desired_capabilities=DesiredCapabilities.FIREFOX)
 
-		client = MongoClient('mongodb', 27017)
-		db = client.cookiebase
-		self.db = db.cookies
+		self.db = db
 
-	def close_driver(self):
-		self.driver.quit()
 
 
 	def get_cookies(self, uname, password):
@@ -78,17 +74,4 @@ class CookieObtainer:
             'uname': uname,
 		})
 
-		try:
-			el = WT(driver, 5).until(EC.presence_of_element_located(
-					(
-						By.XPATH,
-						'/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]'
-					)
-				))
-			el.click()
-			driver.find_element(
-					By.XPATH,
-					'/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/div[2]/div/div[2]/div[2]/div/div/div/div/div/div/div'
-				).click()
-		except TimeoutException as e:
-			print(f"Error logging out =============!! {e} !!=============")
+		self.driver.quit()
